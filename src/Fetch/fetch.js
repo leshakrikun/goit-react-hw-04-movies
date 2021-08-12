@@ -17,17 +17,19 @@ function FetchTrends() {
 }
 
 function FetchMovie(search) {
+  console.log('fetch', search);
     
-  return fetch(`https://api.themoviedb.org/3/search/movie?api_key=${key}&language=en-US&page=1&include_adult=false`).then(response => {
+  return fetch(`https://api.themoviedb.org/3/search/movie?api_key=${key}&language=en-US&query=${search}&page=1&include_adult=false`).then(response => {
+    console.log(22,response);
     if (response.ok) {
       return response.json();
     }
   });
 }
 
-function FetchMovieDetails(search) {
+function FetchMovieDetails(moviesId) {
     
-  return fetch(`https://api.themoviedb.org/3/movie/{movie_id}?api_key=${key}&language=en-US`).then(response => {
+  return fetch(`https://api.themoviedb.org/3/movie/${moviesId}?api_key=${key}&language=en-US`).then(response => {
     if (response.ok) {
       return response.json();
     }

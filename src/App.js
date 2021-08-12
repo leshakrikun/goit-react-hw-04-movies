@@ -1,50 +1,50 @@
 import { useState, useEffect } from 'react';
+import { useHistory, NavLink, Link, useRouteMatch } from 'react-router-dom';
+import { useRouter } from "./hooks/useRouter"
+
 import API from './Fetch/fetch';
 import ImageGallery from './components/ImageGallery/imageGallery'
 import ImageGalleryItem from './components/ImageGalleryItem/imageGalleryItem'
-/* import Searchbar from './components/Searchbar/searchbar'
+import Navigation from '../src/components/Navigation/navigation'
 
-import Loader from 'react-loader-spinner'
+
+/* import Loader from 'react-loader-spinner'
 
 import Button from './components/Button/button'
 import Modal from './components/Modal/modal' */
 import './App.css'
-
-let aa;
+let history 
 export default function App () {
-  const [movie, setMovie] = useState('');
-  const [search, setSearch] = useState('');
-  const [errors, setErrors] = useState(null);
+   
   const [loading, setLoading] = useState(false);
-  const [getTrends, setGetTrends] = useState('');
+  const [isBegin, setIsBeging] = useState(true);
+  const {url} = useRouteMatch();
+  history = useHistory()
+  
+  const routing = useRouter(isBegin);
 
- 
+  const path = isBegin ? "/home" : "/movies";
+  console.log(1,path);
+  console.log(2,history);
 
-  //***************************************************** */
   useEffect(() => {
-    API.FetchTrends().then(movie => {
-      setMovie((movie));
-    })
-  },[])
+    history.push(path);
+  }, [history, path]);
+
+  return (
+    <div className="App">
+      <Navigation />
+      <header className="App-header">{routing}</header>
+    </div>
+  );
+}
 
 //***************************************************** */
 
-  
-  const handleSubmit = e => {
-    e.preventDefault();
-    API.resetPage()
-    setLoading(true)
-    const form = e.target 
-    API.FetchPhoto(search)
-      .then(photos =>  {
-        setMovie(photos.hits)
-        setLoading(false)})
-      .catch(errors => {
-        setErrors('Повторите запрос')
-        setLoading(false)
-      });
-      form.reset(); 
-  };
+
+
+
+
   /* 
   const [photos, setPhotos] = useState('');
   const [search, setSearch] = useState('');
@@ -94,9 +94,7 @@ export default function App () {
       form.reset(); 
   };
   
-  const handleChange = (e) => {
-  setSearch(e.target.value )
-  } 
+ 
 
   const onMoreClick = () => {
     API.FetchPhoto(search)
@@ -118,32 +116,3 @@ export default function App () {
     };
   }
    */
-    return (
-    <>
-      
-     {movie !== "" ? 
-    <ImageGallery>
-      <ImageGalleryItem movie= {(movie)} /* onClick={handleOpenModal} *//> 
-    </ImageGallery> : <></>}
-
-   {/*  {showModal &&  (
-      <Modal onChange={handleKeyDown} state={photos} image={largeImage} />
-    )}
-    <Searchbar  handleSubmit = {handleSubmit}  handleChange={handleChange} />
-    {loading && <Loader 
-        type="Puff"
-        color="#00BFFF"
-        height={100}
-        width={100}
-        timeout={3000} className='loader'>
-        </Loader>}
-    <div className='container'>
-    {errors && <h2>Ошибка запроса</h2>}
-   {photos !== "" ?
-    <ImageGallery>
-      <ImageGalleryItem photos= {photos} onClick={handleOpenModal}/> 
-    </ImageGallery>: <></>}
-    {(photos.length!==0 && photos.length %12===0) && <Button onClick={onMoreClick}/>}
-    </div> */}
-    </>
-)}
