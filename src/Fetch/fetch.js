@@ -36,18 +36,18 @@ function FetchMovieDetails(moviesId) {
   });
 }
 
-function FetchMovieCredits(search) {
+function FetchMovieCredits(moviesId) {
     
-  return fetch(`https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key=${key}&language=en-US`).then(response => {
+  return fetch(`https://api.themoviedb.org/3/movie/${moviesId}/credits?api_key=${key}&language=en-US`).then(response => {
     if (response.ok) {
       return response.json();
     }
   });
 }
 
-function FetchMovieReview(search) {
+function FetchMovieReview(moviesId) {
     
-  return fetch(`https://api.themoviedb.org/3/movie/{movie_id}/reviews?api_key=${key}&language=en-US&page=1`).then(response => {
+  return fetch(`https://api.themoviedb.org/3/movie/${moviesId}/reviews?api_key=${key}&language=en-US&page=1`).then(response => {
     if (response.ok) {
       return response.json();
     }

@@ -1,29 +1,25 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Lazy, React} from 'react';
 import API from '../Fetch/fetch';
-import ImageGallery from '../components/ImageGallery/imageGallery'
-import ImageGalleryItem from '../components/ImageGalleryItem/imageGalleryItem'
+import MovieGallery from '../components/MovieGallery/movieGallery'
+import MovieGalleryItem from '../components/movieGalleryItem/movieGalleryItem'
 
 
-export default function Home () {
+export default function Home  ()  {
 
-    const [movie, setMovie] = useState('');
-    const [getTrends, setGetTrends] = useState('');
- //***************************************************** */
+  const [movie, setMovie] = useState('');
+
   useEffect(() => {
     API.FetchTrends().then(movie => {
       setMovie((movie));
     })
   },[])
 
-//***************************************************** */
-
-return (
-    <>
-      
-     {movie !== "" ? 
-    <ImageGallery>
-      <ImageGalleryItem movie= {(movie)} /* onClick={handleOpenModal} *//> 
-    </ImageGallery> : <></>}
-    </>
-)
+  return (
+    <div>
+    {movie &&
+    <MovieGallery>
+      <MovieGalleryItem movie= {(movie)} /> 
+    </MovieGallery>}
+    </div>
+  )
 }

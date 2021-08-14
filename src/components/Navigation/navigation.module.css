@@ -1,13 +1,22 @@
-.navHeaderLink {
-  display: inline-block;
+.headerLink {
+  display: flex;
   text-decoration: none;
   padding: 12px;
   font-weight: 500;
-  color: #2a363b;
+  color: #223523;
   font-size: 18px;
 }
 
-.activeLink {
-  composes: navHeaderLink;
+.activeHeaderLink {
+  display: flex;
+  text-decoration: none;
+  padding: 12px;
+  font-weight: 500;
+  font-size: 18px;
   color: #2196f3;
+}
+.header {
+  display: flex;
+  list-style-type: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }

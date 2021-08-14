@@ -2,9 +2,7 @@ import React from 'react';
 import s from './searchbar.module.css';
 
 export default function Searchbar ({handleSubmit,  handleChange, search})  {
-  console.log('handleSubmit', handleSubmit);
-  console.log('handleChange', handleChange);
-  console.log('search', search);
+  
   return(
 
     <header className={s.searchbar}>
@@ -16,7 +14,7 @@ export default function Searchbar ({handleSubmit,  handleChange, search})  {
           className={s.searchFormInput}
           type="text"
           onChange={handleChange} 
-          placeholder="Search images and photos"
+          placeholder="Search movie"
         />
       </form>
     </header>

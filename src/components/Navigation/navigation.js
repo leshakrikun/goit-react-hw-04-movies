@@ -1,14 +1,15 @@
+import { React } from 'react';
 import { NavLink } from "react-router-dom";
 import s from './navigation.module.css';
 
 const Navigation = () => {
   return (
-    <ul>
+    <ul className={s.header} >
       <li>
-        <NavLink className={s.navHeaderLink} activeclassname={s.activeLink} to="/home">Home</NavLink>
+        <NavLink className={s.headerLink} activeClassName={s.activeHeaderLink} to="/home">Home</NavLink>
       </li>
       <li>
-        <NavLink className={s.navHeaderLink} activeclassname={s.activeLink} to="/movies">Movies</NavLink>
+        <NavLink className={s.headerLink} activeClassName={s.activeHeaderLink} to="/movies">Movies</NavLink>
       </li>
     </ul> 
   );

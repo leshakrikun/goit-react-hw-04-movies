@@ -1,29 +1,19 @@
-import { Switch, Route, Redirect, useRouteMatch } from "react-router-dom";
-import Movies from "../pages/movies";
-import Home from "../pages/home";
-import DetailsPage from "../pages/detailsPage";
+import {  React, Suspense, lazy } from 'react'
+import { Switch, Route, Redirect } from "react-router-dom";
 
-import PageNotFound from "../pages/pageNotFound";
+import Movies from "../pages/movies";
+/* import Home from "../pages/home"; */
+import DetailsPage from "../pages/detailsPage";
+const Home = lazy (() => import ('../pages/home.js'))
+/* import PageNotFound from "../pages/pageNotFound"; */
 
 export const useRouter = (isBegin) => {
-  const {url} = useRouteMatch();
-  /* if (isBegin) { */
-   /*  return (
-      <Switch>
-        <Route path="/dashboard">
-          <Dashboard />
-        </Route>
-        {/* <Route path="/404">
-          <PageNotFound />
-        </Route>
-        <Redirect to="404" /> }
-      </Switch>
-    );
-  } */
-
+ 
   return (
+    <div>
+      <Suspense fallback = {<div>загружаем</div>}> 
     <Switch>
-      <Route path="/home"exact>
+      <Route path="/home" exact>
         <Home />
       </Route>
       <Route path="/home/:moviesId">
@@ -37,10 +27,12 @@ export const useRouter = (isBegin) => {
       </Route>
 
      
-      <Route path="/404">
+      {/* <Route path="/404">
         <PageNotFound />
       </Route>
-      <Redirect to="404" />
+      <Redirect to="404" /> */}
     </Switch>
+    </Suspense>
+    </div>
   );
 };
