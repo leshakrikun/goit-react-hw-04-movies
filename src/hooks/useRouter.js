@@ -1,19 +1,19 @@
 import {  React, Suspense, lazy } from 'react'
 import { Switch, Route, Redirect } from "react-router-dom";
+import Loader from 'react-loader-spinner'
 
-import Movies from "../pages/movies";
-/* import Home from "../pages/home"; */
-import DetailsPage from "../pages/detailsPage";
-const Home = lazy (() => import ('../pages/home.js'))
+const Home = lazy (() => import ('../pages/home.js'/* webpackChunkName: 'Home' */))
+const DetailsPage = lazy (() => import ("../pages/detailsPage" /* webpackChunkName: 'DetailsPage' */))
+const Movies = lazy (() => import ('../pages/movies'/* webpackChunkName: 'DetailsPage' */))
 /* import PageNotFound from "../pages/pageNotFound"; */
 
 export const useRouter = (isBegin) => {
  
   return (
     <div>
-      <Suspense fallback = {<div>загружаем</div>}> 
+      <Suspense fallback = {<div><Loader className='loader'></Loader> </div>}> 
     <Switch>
-      <Route path="/home" exact>
+      <Route path="/" exact>
         <Home />
       </Route>
       <Route path="/home/:moviesId">
@@ -27,10 +27,8 @@ export const useRouter = (isBegin) => {
       </Route>
 
      
-      {/* <Route path="/404">
-        <PageNotFound />
-      </Route>
-      <Redirect to="404" /> */}
+    
+      <Redirect to="/home" /> 
     </Switch>
     </Suspense>
     </div>

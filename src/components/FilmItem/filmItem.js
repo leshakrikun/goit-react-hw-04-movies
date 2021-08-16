@@ -1,19 +1,27 @@
-import { NavLink, Route, useRouteMatch, useParams } from 'react-router-dom';
+import { NavLink, Route, useRouteMatch, useParams, useLocation, useHistory } from 'react-router-dom';
 import { useState, useEffect, React } from 'react';
+import MovieGalleryItem from '../movieGalleryItem/movieGalleryItem'
+import MovieGallery from '../MovieGallery/movieGallery'
 import API from '../../Fetch/fetch';
 import s from './filmItem.module.css';
-
+let old = []
 export default function FilmItem ({movie})  {
     const [cast, setCast] = useState('');
     const [review, setReview] = useState('');
     const [errors, setErrors] = useState(null);
+    const [searchMovie, setSearchMovie] = useState('');
     const {moviesId} = useParams();
+    const history = useHistory()
+    const location = useLocation()
+    const {url} = useRouteMatch();
+    
     const base_url = 'https://image.tmdb.org/t/p/w500'
     
     const {poster_path, tagline, overview, title, release_date, vote_average, genres} = movie
     
     const releaseDate=new Date(release_date);
-    const {url} = useRouteMatch();
+    
+    
     useEffect(() => {
         API.FetchMovieCredits(moviesId).then(cast => {
             setCast((cast));
@@ -32,9 +40,14 @@ export default function FilmItem ({movie})  {
       },
       )
     },[])
-    
+    const OnGoBack = () => {
+        history.push(location?.state?.from)
+    }
+ 
+        
 return (
     <div>
+    <button type='button' onClick = {OnGoBack}>Back</button>
     <div className={s.details}>
     <img src = {base_url + poster_path}   alt={tagline} className={s.poster}/>
     <div className={s.detailsInfo}>
@@ -53,8 +66,8 @@ return (
     <div className={s.additional}>
     <p>Additional information</p>
     <ul className={s.infoLinks}>
-        <NavLink className={s.infoLinksItem} to={`${url}/cast`}>Cast</NavLink> 
-        <NavLink className={s.infoLinksItem} to={`${url}/review`}>Reviews</NavLink> 
+        <NavLink className={s.infoLinksItem} to={{pathname:`${url}/cast`,state:{from: location},}}>Cast</NavLink> 
+        <NavLink className={s.infoLinksItem} to={{pathname:`${url}/review`,state:{from: location},}}>Reviews</NavLink> 
     </ul>
     </div>
         {cast &&
@@ -64,6 +77,7 @@ return (
                     <li className = {s.castName} key={name.credit_id}>
                         {name.profile_path && <img src = {base_url + `${name.profile_path}`}   alt={`${name.name}`} className={s.castPoster}/>}
                         {name.name}
+                        {name.character && <p>Character: {name.character}</p>} 
                     </li>
                     ))}
                 </ul>
@@ -71,6 +85,7 @@ return (
         }
         {review &&
             <Route path =  {`${url}/review`}>
+                {review.results.length!==0 ?
                 <ul className = {s.review}>
                     {review.results.map (name=>(
                     <li className = {s.reviewName} key={name.id}>
@@ -79,6 +94,7 @@ return (
                     </li> 
                     ))}
                 </ul>
+                :<p>We don't have any reviews for this movie</p>}
             </Route>    
         }
     </div>

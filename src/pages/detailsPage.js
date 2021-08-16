@@ -6,8 +6,7 @@ import FilmItem from '../components/FilmItem/filmItem'
 export default function MovieDetails () {
     
 const {moviesId} = useParams();
-  
-    const [details, setDetails] = useState('');
+const [details, setDetails] = useState('');
  
   useEffect(() => {
     API.FetchMovieDetails(moviesId).then(movie => {
@@ -16,11 +15,7 @@ const {moviesId} = useParams();
     )
   },[])
 
-
-
 return (
-    
-    details &&  <FilmItem movie= {(details)}  /> 
-      
+  details &&  <FilmItem movie= {(details)}  /> 
 )
 }

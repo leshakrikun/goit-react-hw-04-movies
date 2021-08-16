@@ -3,9 +3,7 @@ import API from '../Fetch/fetch';
 import MovieGallery from '../components/MovieGallery/movieGallery'
 import MovieGalleryItem from '../components/movieGalleryItem/movieGalleryItem'
 
-
 export default function Home  ()  {
-
   const [movie, setMovie] = useState('');
 
   useEffect(() => {
@@ -15,11 +13,13 @@ export default function Home  ()  {
   },[])
 
   return (
-    <div>
-    {movie &&
-    <MovieGallery>
-      <MovieGalleryItem movie= {(movie)} /> 
-    </MovieGallery>}
-    </div>
+    <>
+      <h1>Trending Today</h1>
+      {movie &&
+        
+        <MovieGallery>
+          <MovieGalleryItem movie= {(movie)} /> 
+        </MovieGallery>}
+    </>
   )
 }

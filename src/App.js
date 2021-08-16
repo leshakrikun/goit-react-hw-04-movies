@@ -13,23 +13,22 @@ import Loader from 'react-loader-spinner'
 /* import Button from './components/Button/button'
 import Modal from './components/Modal/modal' */ 
 import './App.css'
-let history 
+
 export default function App () {
    
   const [loading, setLoading] = useState(false);
-  const [isBegin, setIsBeging] = useState(false);
+  const [isBegin, setIsBeging] = useState(true);
   const {url} = useRouteMatch();
-  history = useHistory()
+  const history = useHistory()
   
   const routing = useRouter(isBegin);
 
-  const path = isBegin ? "/home" : "/movies";
-  console.log(1,path);
-  console.log(2,history);
+  const path = isBegin ? "/" : "/movies";
+
 
   useEffect(() => {
     history.push(path);
-  }, [history, path]);
+  }, [history]);
 
   return (
     <div className="App container">
