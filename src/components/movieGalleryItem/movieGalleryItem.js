@@ -5,7 +5,6 @@ import s from './movieGalleryItem.module.css';
 export default function MovieGalleryItem ({movie})  {
   const {url} = useRouteMatch();
   const location = useLocation();
- 
   return(
     <>
       {movie.results.map (state =>(

@@ -12,7 +12,6 @@ export default function FilmItem ({movie})  {
     const history = useHistory()
     const location = useLocation()
     const {url} = useRouteMatch();
-    
     const base_url = 'https://image.tmdb.org/t/p/w500'
     const {poster_path, tagline, overview, title, release_date, vote_average, genres} = movie
     const releaseDate=new Date(release_date);

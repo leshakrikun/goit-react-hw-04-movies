@@ -5,9 +5,9 @@ import FilmItem from '../components/FilmItem/filmItem'
 
 export default function MovieDetails () {
     
-const {moviesId} = useParams();
-const [details, setDetails] = useState('');
- 
+  const {moviesId} = useParams();
+  const [details, setDetails] = useState('');
+
   useEffect(() => {
     API.FetchMovieDetails(moviesId).then(movie => {
         setDetails((movie));
