@@ -14,15 +14,7 @@
   display: flex;
   justify-content: center;
   margin-top: 150px;
-  type: 'Puff';
   color: '#00BFFF';
   height: 100px;
   width: 100px;
-  timeout: 3000;
 }
-/* h2 {
-  display: flex;
-  margin-top: 150px;
-  justify-content: center;
-}
- */
