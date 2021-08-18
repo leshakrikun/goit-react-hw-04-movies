@@ -7,51 +7,49 @@ import MovieGalleryItem from '../components/movieGalleryItem/movieGalleryItem'
 import Loader from 'react-loader-spinner'
 
 let oldPage
-  const Movies = () => {
+const Movies = () => {
     
-    const [search, setSearch] = useState('');
-    const [loading, setLoading] = useState(false);
-    const [searchMovie, setSearchMovie] = useState('');
-    const [errors, setErrors] = useState(null);
-    const history = useHistory()
+  const [search, setSearch] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [searchMovie, setSearchMovie] = useState('');
+  const history = useHistory()
 
-
-    const handleChange = (e) => {
+  const handleChange = (e) => {
     setSearch(e.target.value )
-    } 
-  
-   const handleSubmit = e => {
-      e.preventDefault();
-      if(search.trim()){
-        setLoading(true)
-      API.FetchMovie(search)
-        .then(searchMovie =>  {
-          setSearchMovie((searchMovie))
-          oldPage = searchMovie
-          history.push(`?query=${search}`) 
-        setLoading(false)}, 
-          )
-        }
+  } 
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    if(search.trim()){
+      setLoading(true)
+    API.FetchMovie(search)
+      .then(searchMovie =>  {
+        setSearchMovie((searchMovie))
+        oldPage = searchMovie
+        history.push(`?query=${search}`) 
+      setLoading(false)}, 
+        )
+      }
   };
+
   useEffect(() => {
     setSearchMovie((oldPage))
   },[history])
 
-    return (
-          <div>  
-         <Searchbar  search = {search} handleSubmit ={handleSubmit}  handleChange={handleChange} />
-         {loading && 
-        <div>
-         <Loader 
+  return (
+    <div>  
+      <Searchbar  search = {search} handleSubmit ={handleSubmit}  handleChange={handleChange} />
+      {loading && 
+      <div>
+        <Loader 
           type={ 'Puff'}
           className='loader'>
         </Loader>
-        </div>}
-
-         {searchMovie &&
-         <MovieGallery>
-           <MovieGalleryItem movie= {(searchMovie)} /> 
-         </MovieGallery>}
-         </div>
-    )}
-  export default  Movies
+      </div>}
+      {searchMovie &&
+        <MovieGallery>
+          <MovieGalleryItem movie= {(searchMovie)} /> 
+        </MovieGallery>}
+    </div>
+)}
+export default  Movies

@@ -3,11 +3,10 @@ import { useState, useEffect, React } from 'react';
 
 import API from '../../Fetch/fetch';
 import s from './filmItem.module.css';
-
+let pathRoot
 export default function FilmItem ({movie})  {
     const [cast, setCast] = useState('');
     const [review, setReview] = useState('');
-    const [errors, setErrors] = useState(null);
     const {moviesId} = useParams();
     const history = useHistory()
     const location = useLocation()
@@ -21,22 +20,20 @@ export default function FilmItem ({movie})  {
             setCast((cast));
         },
         )
-        .catch(errors => {
-            setErrors('Информация отсутствует')    
-          });
     },[])
     
     useEffect(() => {
       API.FetchMovieReview(moviesId).then(review => {
         setReview((review));
+        pathRoot = location.state
       },
       )
     },[])
-
+    
     const OnGoBack = () => {
-        history.push(location?.state?.from)
+        history.push(pathRoot ? pathRoot : location?.state?.from?.state )
     }
-     
+
     return (
         <div>
             <button type='button' onClick = {OnGoBack}>Back</button>

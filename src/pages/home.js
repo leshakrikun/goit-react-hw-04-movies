@@ -5,7 +5,7 @@ import MovieGalleryItem from '../components/movieGalleryItem/movieGalleryItem'
 
 export default function Home  ()  {
   const [movie, setMovie] = useState('');
-
+  
   useEffect(() => {
     API.FetchTrends().then(movie => {
       setMovie((movie));
